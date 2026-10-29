@@ -1,1 +1,6 @@
-1st line content in merge.txt in main branch
+replacing the content of this file to merge later in merge_branch
+<<<<<<< HEAD
+appended some lines to merge.txt
+appended some lines to merge.txt
+=======
+>>>>>>> merge_branch
