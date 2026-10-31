@@ -9,4 +9,4 @@ jobs:
 
     steps:
       - name: Run Echo Cmd
-          run: echo "This is Github Actions Workflow Step!"
+        run: echo "This is Github Actions Workflow Step!"
