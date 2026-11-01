@@ -1,0 +1,56 @@
+name: Basic Job Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  PreCheckJob:
+    name: Preliminary Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Code Scan or Linter
+        run: |
+          echo "Running initial checks..."
+          echo "Checks passed! Moving on to the matrix."
+
+  PythonJob:
+    name: My Custom Python Job
+    runs-on: ubuntu-latest
+
+    needs: [PreCheckJob]
+
+    if: success()
+
+    concurrency: TestGroup
+
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        python-version:
+          - "3.10"
+          - "3.11"
+          - "3.12"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Optional but recommended: cache pip dependencies
+
+      - name: Run Python script
+        run: |
+          python -c "print('Running on Python ${{ matrix.python-version }}')"
+          # Or run your actual script:
+          # python main.py
