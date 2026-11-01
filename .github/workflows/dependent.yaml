@@ -1,0 +1,49 @@
+name: Dependant-Jobs-Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  TestJob:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Execute Python script
+        run: python test.py
+
+  PythonRunJob:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Execute Python script
+        run: python test.py
+
+  ShellRunJob:
+    needs: [TestJob, PythonRunJob]
+
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v6
+
+      - name: Execute Shell script
+        run: bash test.sh
