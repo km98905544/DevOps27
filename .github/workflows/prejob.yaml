@@ -1,0 +1,17 @@
+name: Basic Job Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  TestJob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Say Hello
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Run Shell Commands
+        run: echo "This is shell step"
