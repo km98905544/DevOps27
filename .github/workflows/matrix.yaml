@@ -8,11 +8,11 @@ on:
 jobs:
   PreCheckJob:
     name: Preliminary Checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run Code Scan or Linter
         run: |
@@ -21,7 +21,7 @@ jobs:
 
   PythonJob:
     name: My Custom Python Job
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     needs: [PreCheckJob]
 
@@ -40,10 +40,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
